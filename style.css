@@ -12,6 +12,18 @@
   box-sizing: border-box;
 }
 
+.d-flex {
+  display: flex;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.mt-2 {
+  margin-top: 1rem;
+}
+
 .mt-5 {
   margin-top: 2rem;
 }
@@ -88,6 +100,7 @@ body {
 
 /* button */
 .btn {
+  
   width: 100%;
   padding: 3%;
   background: #007bff;
@@ -99,6 +112,15 @@ body {
   text-transform: uppercase;
 }
 
+#subBtn {
+  display: flex;
+  justify-content: center;
+  border-radius: 2px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  
+}
+
 .btn:hover {
   background: #0069d9;
   cursor: pointer;
@@ -107,3 +129,19 @@ body {
 .btn:focus {
   outline: none;
 }
+
+.panel, .flip {
+  padding:5px;
+  text-align:center;
+  background-color:#e5eecc;
+  border:solid 1px #c3c3c3;
+}
+
+.pandel, .flip:hover {
+  cursor: pointer;
+}
+.panel {
+  padding:40px;
+  
+}
+

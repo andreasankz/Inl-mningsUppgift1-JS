@@ -177,11 +177,10 @@ const showSuccess = (input) => {
 }
 
 
+
 form.addEventListener('submit', function (e) {
-    
     e.preventDefault();
 
-    
     let isFirstNameValid = checkFirstName(),
         isLastName = checkLastName(),
         isEmailValid = checkEmail(),
@@ -201,10 +200,8 @@ form.addEventListener('submit', function (e) {
     
     if (isFormValid) {
 
-        var subButton = document.getElementById('subBtn');
-        subButton.addEventListener('click', getUserInfo, false);
         
-        firstNameEl.textContent = ''
+
     }
 });
 
@@ -249,21 +246,74 @@ form.addEventListener('input', debounce(function (event) {
     }
 }));
 
+
 import User from './models/User.js'
 let users = []
-function getUserInfo() {
+let userData;
 
-    let user = new User(`${firstNameEl.value}`, `${lastNameEl.value}`,`${emailEl.value}`, `${phoneNumberEl.value}`, `${addressEl.value}`, `${cityEl.value}`, `${zipCodeEl.value}` ); 
-    
-    users.push(user)
-    
-    let result = document.getElementById('result');
-    
-    console.log(user)
-    console.log(users)
+let userDiv;
+let flipDiv;
+let panelDiv;
 
-    result.textContent = `${user.firstname}` + `${user.lastname}` + `${user.email}` + `${user.phonenumber}` + `${user.address}` + `${user.city}` + `${user.zip}`;
+document.getElementById('subBtn').addEventListener('click', () => {
+    userData = new User(`${firstName.value}`, `${lastName.value}`, `${email.value}`, `${phoneNumber.value}`, `${address.value}`,`${city.value}`, `${zipCode.value}`)
+    users.push(userData);
+    document.getElementById('userCreated').innerText = "User created!"
+
+
+    createElement()
+    fillPanel()
     
     
     
+})
+
+function createElement () {
+    userDiv = document.createElement('div')
+    flipDiv = document.createElement('div')
+    panelDiv = document.createElement('div')
+
+
+    flipDiv.className = "flip"
+    panelDiv.className = "panel"
+    userDiv.id = `${userData.id}`
+    flipDiv.id = `${userData.id}-flip`
+    panelDiv.id = `${userData.id}-panel`
+
+    flipDiv.innerText = `${userData.firstname}` + ` ${userData.lastname}`
+
+    var currentDiv = document.getElementById('result')
+    currentDiv.appendChild(userDiv)
+    userDiv.appendChild(flipDiv)
+    userDiv.appendChild(panelDiv)
 }
+
+function fillPanel() {
+    var idElement = document.createElement("p")
+    idElement.innerText = `Id: ${userData.id}`
+  
+    var emailElement = document.createElement("p")
+    emailElement.innerText = `E-mail: ${userData.email}`
+    emailElement.id = `${userData.id}-email`
+  
+    var phoneElement = document.createElement("p")
+    phoneElement.innerText = `Phone: ${userData.phonenumber}`
+    phoneElement.id = `${userData.id}-phone`
+  
+    panelDiv.appendChild(idElement)
+    panelDiv.appendChild(emailElement)
+    panelDiv.appendChild(phoneElement)
+}
+    
+
+
+
+    
+
+
+$("body").delegate(".flip", "click", function(){
+    $('.panel').not($(this).next(".panel").slideToggle("slow")).slideUp("slow");
+  });
+    $("#subBtn").click(function() {
+        $("#result").append();
+});

@@ -1,3 +1,5 @@
+import { uuidv4 } from "../helpers/functions.js";
+
 export default class User {
     constructor(firstname, lastname, email, phonenumber, address, city, zip) {
         this.firstname = firstname
@@ -10,6 +12,6 @@ export default class User {
     }
 
     get id() {
-        return Date.now().toString()
+        return uuidv4();
     }
 }
