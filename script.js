@@ -1,3 +1,5 @@
+import { uuidv4 } from "./helpers/functions.js";
+
 const firstNameEl = document.querySelector('#firstName');
 const lastNameEl = document.querySelector('#lastName');
 const emailEl = document.querySelector('#email');
@@ -5,17 +7,11 @@ const phoneNumberEl = document.querySelector('#phoneNumber');
 const addressEl = document.querySelector('#address');
 const cityEl = document.querySelector('#city');
 const zipCodeEl = document.querySelector('#zipCode');
+const id = uuidv4();
 
 const form = document.querySelector('#signup');
 
-form.addEventListener('submit', function (e)  {
-    e.preventDefault(); // Hanterar så att inte sidan laddas om
-
-})
-
-
 const checkFirstName = () => {
-
     let valid = false;
 
     const min = 2,
@@ -35,7 +31,6 @@ const checkFirstName = () => {
 };
 
 const checkLastName = () => {
-
     let valid = false;
 
     const min = 2,
@@ -56,9 +51,10 @@ const checkLastName = () => {
 
 
 const checkEmail = () => {
-
     let valid = false;
+    
     const email = emailEl.value.trim();
+    
     if (!isRequired(email)) {
         showError(emailEl, 'Email cannot be blank.');
     } else if (!isEmailValid(email)) {
@@ -71,9 +67,10 @@ const checkEmail = () => {
 };
 
 const checkPhone = () => {
-
     let valid = false;
+    
     const phone = phoneNumberEl.value.trim();
+    
     if (!isRequired(phone)) {
         showError(phoneNumberEl, 'Phone number cannot be blank.');
     } else if (!isPhoneValid(phone)) {
@@ -86,7 +83,6 @@ const checkPhone = () => {
 };
 
 const checkAddress = () => {
-
     let valid = false;
 
     const address = addressEl.value.trim();
@@ -102,7 +98,6 @@ const checkAddress = () => {
 };
 
 const checkCity = () => {
-
     let valid = false;
 
     const city = cityEl.value.trim();
@@ -118,7 +113,6 @@ const checkCity = () => {
 };
 
 const checkZipCode = () => {
-
     let valid = false;
 
     const min = 5,
@@ -150,36 +144,30 @@ const isPhoneValid = (phone) => { // samma för telefon nummer
 const isRequired = value => value === '' ? false : true; // returerar sant om inputet är tomt
 const isBetween = (length, min, max) => length < min || length > max ? false : true; // returerar falskt om längden på texten inte är mellan min och max valuet
 
-
 const showError = (input, message) => {
-    
     const formField = input.parentElement;
     
     formField.classList.remove('success');
     formField.classList.add('error');
 
-    
     const error = formField.querySelector('small');
     error.textContent = message;
 };
 
 const showSuccess = (input) => {
-    
     const formField = input.parentElement;
 
-    
     formField.classList.remove('error');
     formField.classList.add('success');
 
-    
     const error = formField.querySelector('small');
     error.textContent = '';
 }
 
 
 
-form.addEventListener('submit', function (e) {
-    e.preventDefault();
+form.addEventListener('submit', function (event) {
+    event.preventDefault();
 
     let isFirstNameValid = checkFirstName(),
         isLastName = checkLastName(),
@@ -197,14 +185,22 @@ form.addEventListener('submit', function (e) {
         isCityValid &&
         isZipCodeValid;
 
-    
     if (isFormValid) {
-
+        userData = new User(`${uuidv4()}`,`${firstName.value}`, `${lastName.value}`, `${email.value}`, `${phoneNumber.value}`, `${address.value}`,`${city.value}`, `${zipCode.value}`)
+        users.push(userData);
+        document.getElementById('userInfoText').innerText = "User created!"
+        document.getElementById('userInfoTextRed').innerText = ""
         
-
+        createElement()
+        fillPanel()
+        $("#signup")[0].reset();
+        console.log(users)
+    }
+    else {
+       document.getElementById('userInfoTextRed').innerText = "All fields must be filled correctly!";
+       document.getElementById('userInfoText').innerText = "";
     }
 });
-
 
 const debounce = (fn, delay = 500) => {
     let timeoutId;
@@ -246,7 +242,6 @@ form.addEventListener('input', debounce(function (event) {
     }
 }));
 
-
 import User from './models/User.js'
 let users = []
 let userData;
@@ -255,30 +250,15 @@ let userDiv;
 let flipDiv;
 let panelDiv;
 
-document.getElementById('subBtn').addEventListener('click', () => {
-    userData = new User(`${firstName.value}`, `${lastName.value}`, `${email.value}`, `${phoneNumber.value}`, `${address.value}`,`${city.value}`, `${zipCode.value}`)
-    users.push(userData);
-    document.getElementById('userCreated').innerText = "User created!"
-
-
-    createElement()
-    fillPanel()
-    
-    
-    
-})
-
 function createElement () {
     userDiv = document.createElement('div')
     flipDiv = document.createElement('div')
     panelDiv = document.createElement('div')
 
-
     flipDiv.className = "flip"
     panelDiv.className = "panel"
     userDiv.id = `${userData.id}`
-    flipDiv.id = `${userData.id}-flip`
-    panelDiv.id = `${userData.id}-panel`
+    
 
     flipDiv.innerText = `${userData.firstname}` + ` ${userData.lastname}`
 
@@ -294,23 +274,20 @@ function fillPanel() {
   
     var emailElement = document.createElement("p")
     emailElement.innerText = `E-mail: ${userData.email}`
-    emailElement.id = `${userData.id}-email`
-  
+    
     var phoneElement = document.createElement("p")
     phoneElement.innerText = `Phone: ${userData.phonenumber}`
-    phoneElement.id = `${userData.id}-phone`
+    
+    var addressElement = document.createElement("p")
+    addressElement.innerText = `Address: ${userData.address}, ${userData.zip} ${userData.city}`
   
     panelDiv.appendChild(idElement)
     panelDiv.appendChild(emailElement)
     panelDiv.appendChild(phoneElement)
+    panelDiv.appendChild(addressElement)
 }
-    
 
-
-
-    
-
-
+// JQuery
 $("body").delegate(".flip", "click", function(){
     $('.panel').not($(this).next(".panel").slideToggle("slow")).slideUp("slow");
   });

@@ -1,7 +1,6 @@
-import { uuidv4 } from "../helpers/functions.js";
-
 export default class User {
-    constructor(firstname, lastname, email, phonenumber, address, city, zip) {
+    constructor(id, firstname, lastname, email, phonenumber, address, city, zip) {
+        this.id = id
         this.firstname = firstname
         this.lastname = lastname
         this.email = email
@@ -11,7 +10,7 @@ export default class User {
         this.zip = zip
     }
 
-    get id() {
-        return uuidv4();
-    }
+    // get id() {
+    //     return uuidv4();
+    // }
 }

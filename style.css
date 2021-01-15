@@ -20,12 +20,29 @@
   justify-content: center;
 }
 
+.justify-content-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mb-2 {
+  margin-bottom: 1rem;
+}
+
 .mt-2 {
   margin-top: 1rem;
 }
 
 .mt-5 {
   margin-top: 2rem;
+}
+
+.text-green {
+  color:  #28a745;
+}
+
+.text-red {
+  color:#dc3545;
 }
 
 body {
@@ -118,7 +135,13 @@ body {
   border-radius: 2px;
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
-  
+}
+#clrBtn {
+  display: flex;
+  justify-content: center;
+  border-radius: 2px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
 }
 
 .btn:hover {
