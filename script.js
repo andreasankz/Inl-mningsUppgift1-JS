@@ -136,7 +136,7 @@ const isEmailValid = (email) => { // Använder ett regular expression för att k
     return emailReturn.test(email);
 }
 
-const isPhoneValid = (phone) => { // samma för telefon nummer
+const isPhoneValid = (phone) => { // samma för telefon nummer, får den inte riktigt att stämma så den validerar direkt som alla andra fält
     const phoneReturn = /^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,3})|(\(?\d{2,3}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/;
     return phoneReturn.test(phone)
 }
@@ -185,7 +185,7 @@ form.addEventListener('submit', function (event) {
         isCityValid &&
         isZipCodeValid;
 
-    if (isFormValid) {
+    if (isFormValid) { // När allt är validerat och korrekt så skapar jag listan här
         userData = new User(`${uuidv4()}`,`${firstName.value}`, `${lastName.value}`, `${email.value}`, `${phoneNumber.value}`, `${address.value}`,`${city.value}`, `${zipCode.value}`)
         users.push(userData);
         document.getElementById('userInfoText').innerText = "User created!"
@@ -202,14 +202,14 @@ form.addEventListener('submit', function (event) {
     }
 });
 
-const debounce = (fn, delay = 500) => {
+const debounce = (fn, delay = 500) => { // För att få en liten fördröjning på när den validerar så kör jag denna function
     let timeoutId;
     return (...args) => {
-        // cancel the previous timer
+        
         if (timeoutId) {
             clearTimeout(timeoutId);
         }
-        // setup a new timer
+        
         timeoutId = setTimeout(() => {
             fn.apply(null, args)
         }, delay);
@@ -250,16 +250,14 @@ let userDiv;
 let flipDiv;
 let panelDiv;
 
-function createElement () {
+function createElement () {  // Här skapar jag elementen som ska vara i listan
     userDiv = document.createElement('div')
     flipDiv = document.createElement('div')
     panelDiv = document.createElement('div')
 
     flipDiv.className = "flip"
     panelDiv.className = "panel"
-    userDiv.id = `${userData.id}`
     
-
     flipDiv.innerText = `${userData.firstname}` + ` ${userData.lastname}`
 
     var currentDiv = document.getElementById('result')
