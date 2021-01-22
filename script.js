@@ -194,7 +194,7 @@ form.addEventListener('submit', function (event) {
         createElement()
         fillPanel()
         $("#signup")[0].reset();
-        console.log(users)
+        // console.log(users)
     }
     else {
        document.getElementById('userInfoTextRed').innerText = "All fields must be filled correctly!";

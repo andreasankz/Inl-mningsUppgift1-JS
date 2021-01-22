@@ -156,15 +156,16 @@ body {
 .panel, .flip {
   padding:5px;
   text-align:center;
-  background-color:#e5eecc;
+  background-color:#6df374;
   border:solid 1px #c3c3c3;
+  
 }
 
-.pandel, .flip:hover {
+.flip:hover {
   cursor: pointer;
 }
 .panel {
-  padding:40px;
-  
+  padding: 2rem;
+  border-radius: 2%;
 }
 
